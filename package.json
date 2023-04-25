@@ -9,7 +9,7 @@
     "build:esm": "tsc"
   },
   "type": "module",
-  "main": "lib/esm/index.js",
+  "module": "lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
   "repository": {
     "type": "git",
