@@ -8,6 +8,7 @@
     "build": "yarn prebuild && yarn build:esm",
     "build:esm": "tsc"
   },
+  "type": "module",
   "main": "lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
   "repository": {
