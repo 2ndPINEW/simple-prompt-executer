@@ -30,8 +30,14 @@ const prompt = {
 
 const executer = new PromptExecuter({ openAiApiKey: "sk-xxxx" });
 const result = await executer.execute(prompt);
+//   ^result = {
+// 	question: "クリスマスに隠かくれている3つのものはなーんだ？",
+// 	selection: "クリ、リス、マス,トナカイ,シカ,奈良",
+// 	answer: "クリ、リス、マス"
+// }
 
-console.log(result.question);
+// 型もついてるのでこれはエラーになります
+result.notExistProperty;
 ```
 
 ### Deno
@@ -60,8 +66,14 @@ const prompt = {
 
 const executer = new PromptExecuter({ openAiApiKey: "sk-xxxx" });
 const result = await executer.execute(prompt);
+//   ^result = {
+// 	question: "クリスマスに隠かくれている3つのものはなーんだ？",
+// 	selection: "クリ、リス、マス,トナカイ,シカ,奈良",
+// 	answer: "クリ、リス、マス"
+// }
 
-console.log(result.question);
+// 型もついてるのでこれはエラーになります
+result.notExistProperty;
 ```
 
 ### LLM は自分で決めたい
@@ -91,6 +103,14 @@ const prompt = {
 const stringPrompt = makePromptString(prompt);
 const llmOutput = `Use any llm here`;
 const result = parsePrompt(prompt, llmOutput);
+//   ^result = {
+// 	question: "クリスマスに隠かくれている3つのものはなーんだ？",
+// 	selection: "クリ、リス、マス,トナカイ,シカ,奈良",
+// 	answer: "クリ、リス、マス"
+// }
+
+// 型もついてるのでこれはエラーになります
+result.notExistProperty;
 ```
 
 # Lisence
