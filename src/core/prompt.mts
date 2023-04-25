@@ -16,8 +16,8 @@ declare const fetch: any;
  * OpenAI APIを使用します
  */
 export class PromptExecuter {
-  openAiApiKey: string;
-  modelName: string;
+  private openAiApiKey: string;
+  private modelName: string;
 
   constructor(opt: { openAiApiKey: string; modelName?: string }) {
     this.openAiApiKey = opt.openAiApiKey;
@@ -54,26 +54,6 @@ export class PromptExecuter {
 
   /**
    * Promptを実行します
-   *
-   * Promptの例です
-   * const prompt = {
-  prompt: `以下の文章から4択クイズを考えてください。`,
-  exampleDescription: "パンをテーマにクイズを考えた例です。",
-  response: {
-    question: {
-      example: "パンはパンでも食べられないパンはなんだ",
-      description: "クイズの問題",
-    },
-    selection: {
-      example: "フライパン, AI, パンダ, パン粉",
-      description: "選択肢",
-    },
-    answer: {
-      example: "パン",
-      description: "答え",
-    },
-  },
-} as const;
    */
   async execute<T extends Prompt>(
     prompt: T
