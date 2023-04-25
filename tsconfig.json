@@ -4,14 +4,23 @@
     "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
+    "sourceMap": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "lib": ["ESNext"],
-    "types": ["node", "jest"],
+    "lib": [
+      "ESNext"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "outDir": "lib/esm"
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "src/dev.mts",
     "src/**/*.spec.ts"

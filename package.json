@@ -2,15 +2,11 @@
   "name": "simple-prompt-executer",
   "version": "0.0.6",
   "description": "",
-  "module": "lib/esm/index.mjs",
-  "types": "lib/esm/index.d.mts",
   "scripts": {
     "test": "jest",
-    "dev": "npx ts-node src/dev.mts",
     "prebuild": "rimraf lib",
     "build": "yarn prebuild && yarn build:esm",
-    "build:esm": "tsc",
-    "bundle:esm": "deno run --allow-read --allow-env --allow-run tools/esbundle.js && mkdir lib/bundle && yarn terser -c -m ---module -o lib/bundle/index.min.js tmp/index.bundle.js"
+    "build:esm": "tsc"
   },
   "repository": {
     "type": "git",

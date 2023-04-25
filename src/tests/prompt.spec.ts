@@ -1,4 +1,4 @@
-import { makePromptString, parsePrompt } from "../index.mjs";
+import { makePromptString, parsePrompt } from "../index";
 
 const prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
