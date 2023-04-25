@@ -8,6 +8,8 @@
     "build": "yarn prebuild && yarn build:esm",
     "build:esm": "tsc"
   },
+  "main": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/2ndPINEW/simple-prompt-executer.git"
