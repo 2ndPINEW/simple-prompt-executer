@@ -1,6 +1,6 @@
 {
   "name": "simple-prompt-executer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "module": "lib/esm/index.mjs",
   "types": "lib/esm/index.d.mts",
