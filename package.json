@@ -1,0 +1,42 @@
+{
+  "name": "simple-prompt-executer",
+  "version": "0.0.1",
+  "description": "",
+  "module": "lib/esm/index.mjs",
+  "types": "lib/esm/index.d.mts",
+  "scripts": {
+    "test": "jest",
+    "dev": "npx ts-node src/dev.mts",
+    "prebuild": "rimraf lib",
+    "build": "yarn prebuild && yarn build:esm",
+    "build:esm": "tsc",
+    "bundle:esm": "deno run --allow-read --allow-env --allow-run tools/esbundle.js && mkdir lib/bundle && yarn terser -c -m ---module -o lib/bundle/index.min.js tmp/index.bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/2ndPINEW/simple-prompt-executer.git"
+  },
+  "keywords": [],
+  "author": "2ndPINEW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2ndPINEW/simple-prompt-executer/issues"
+  },
+  "homepage": "https://github.com/2ndPINEW/simple-prompt-executer#readme",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@jest/types": "^29.3.1",
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.10",
+    "jest": "^29.3.1",
+    "rimraf": "^3.0.2",
+    "terser": "^5.16.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {},
+  "bundledDependencies": []
+}
