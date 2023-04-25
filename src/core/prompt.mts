@@ -56,9 +56,28 @@ export class PromptExecuter {
    * Promptを実行します
    *
    * Promptの例です
-   *
+   * const prompt = {
+  prompt: `以下の文章から4択クイズを考えてください。`,
+  exampleDescription: "パンをテーマにクイズを考えた例です。",
+  response: {
+    question: {
+      example: "パンはパンでも食べられないパンはなんだ",
+      description: "クイズの問題",
+    },
+    selection: {
+      example: "フライパン, AI, パンダ, パン粉",
+      description: "選択肢",
+    },
+    answer: {
+      example: "パン",
+      description: "答え",
+    },
+  },
+} as const;
    */
-  async execute(prompt: Prompt) {
+  async execute<T extends Prompt>(
+    prompt: T
+  ): Promise<{ [k in keyof T["response"]]: string }> {
     const promptString = makePromptString(prompt);
     const res = await this.fetchApi(promptString);
     const result = parsePrompt(prompt, res);
