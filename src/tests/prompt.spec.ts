@@ -17,7 +17,7 @@ const prompt = {
       description: "答え",
     },
   },
-} as const;
+};
 
 const correctPromptString = `以下の文章から4択クイズを考えてください。
 

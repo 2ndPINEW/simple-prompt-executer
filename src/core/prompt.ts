@@ -1,10 +1,10 @@
 type Prompt = {
-  readonly prompt: string;
-  readonly exampleDescription?: string;
-  readonly response: {
-    readonly [key: string]: {
-      readonly description: string;
-      readonly example: string;
+  prompt: string;
+  exampleDescription?: string;
+  response: {
+    [key: string]: {
+      description: string;
+      example: string;
     };
   };
 };
