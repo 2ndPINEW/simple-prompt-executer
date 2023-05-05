@@ -15,7 +15,15 @@
     "type": "git",
     "url": "git+ssh://git@github.com/2ndPINEW/simple-prompt-executer.git"
   },
-  "keywords": [],
+  "keywords": [
+    "openai",
+    "llm",
+    "gpt",
+    "prompt",
+    "parser",
+    "gpt-3",
+    "type"
+  ],
   "author": "2ndPINEW",
   "license": "MIT",
   "bugs": {
