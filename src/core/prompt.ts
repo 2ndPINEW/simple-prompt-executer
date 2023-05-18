@@ -1,4 +1,4 @@
-export type Prompt = {
+type Prompt = {
   prompt: string;
   exampleDescription?: string;
   response: {
