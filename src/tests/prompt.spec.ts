@@ -1,6 +1,6 @@
-import { Prompt, makePromptString, parsePrompt } from "../index";
+import { makePromptString, parsePrompt } from "../index";
 
-const prompt: Prompt = {
+const prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
   exampleDescription: "パンをテーマにクイズを考えた例です。",
   response: {

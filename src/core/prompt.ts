@@ -55,10 +55,10 @@ export class PromptExecuter {
   /**
    * Promptを実行します
    */
-  async execute<T extends Prompt>(prompt: T): Promise<{ [k in keyof T["response"]]: string }> {
+  async execute<T extends Prompt>(prompt: T) {
     const promptString = makePromptString(prompt);
     const res = await this.fetchApi(promptString);
-    const result = parsePrompt(prompt, res);
+    const result = parsePrompt<T>(prompt, res);
     return result;
   }
 }
@@ -82,7 +82,7 @@ const makeResultLines = (llmResponse: string, prompt: Prompt) => {
 export const parsePrompt = <T extends Prompt>(
   prompt: T,
   llmResponse: string
-): { [k in keyof T["response"]]: string } => {
+): { [k in keyof T["response"]]: T["response"][k]["example"] } => {
   const resultLines = makeResultLines(llmResponse, prompt);
   const response = {} as { [k in keyof T["response"]]: string };
   Object.keys(prompt.response).forEach((key) => {
