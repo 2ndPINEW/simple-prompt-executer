@@ -1,6 +1,6 @@
-import { makePromptString, parsePrompt } from "../index";
+import { Prompt, makePromptString, parsePrompt } from "../index";
 
-const prompt = {
+const prompt: Prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
   exampleDescription: "パンをテーマにクイズを考えた例です。",
   response: {
@@ -9,7 +9,7 @@ const prompt = {
       description: "クイズの問題",
     },
     selection: {
-      example: "フライパン, AI, パンダ, パン粉",
+      example: ["フライパン", "AI", "パンダ", "パン粉"],
       description: "選択肢",
     },
     answer: {
@@ -43,19 +43,27 @@ describe("llmが正常な場合", () => {
   });
 
   it("llmの結果をPromptの型に正しく変換できる", () => {
-    const llmResponse = `question: パン\nこっちもパン\nさらにパン\nselection: フライパン, AI, パンダ, パンダ\nanswer: パンダ`;
+    const llmResponse = `question: パン\nこっちもパン\nさらにパン\nselection: フライパン, AI, パンダ, パン粉\nanswer: パンダ`;
     const parseResult = parsePrompt(prompt, llmResponse);
     expect(parseResult).toEqual({
       question: "パン\nこっちもパン\nさらにパン",
-      selection: "フライパン, AI, パンダ, パンダ",
+      selection: ["フライパン", "AI", "パンダ", "パン粉"],
       answer: "パンダ",
     });
   });
 });
 
 describe("llmが異常な場合", () => {
-  it("llmの結果をPromptの型に変換しようとした時にエラーになる", () => {
+  it("キーが足りない時", () => {
     const llmResponse = `question: パン\nこっちもパン\nselection: フライパン, AI, パンダ, パンダ`;
+    function executeParse() {
+      parsePrompt(prompt, llmResponse);
+    }
+    expect(executeParse).toThrowError();
+  });
+
+  it("配列の要素が変な時", () => {
+    const llmResponse = `question: パン\nこっちもパン\nselection: フライパン、AI、パンダ、パンダ\nanswer: パンダ`;
     function executeParse() {
       parsePrompt(prompt, llmResponse);
     }

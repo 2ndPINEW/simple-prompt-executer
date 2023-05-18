@@ -1,1 +1,1 @@
-export * from "./core/prompt.js";
+export * from "./core/prompt";

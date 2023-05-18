@@ -1,10 +1,10 @@
-type Prompt = {
+export type Prompt = {
   prompt: string;
   exampleDescription?: string;
   response: {
     [key: string]: {
       description: string;
-      example: string;
+      example: string | string[];
     };
   };
 };
@@ -55,9 +55,7 @@ export class PromptExecuter {
   /**
    * Promptを実行します
    */
-  async execute<T extends Prompt>(
-    prompt: T
-  ): Promise<{ [k in keyof T["response"]]: string }> {
+  async execute<T extends Prompt>(prompt: T): Promise<{ [k in keyof T["response"]]: string }> {
     const promptString = makePromptString(prompt);
     const res = await this.fetchApi(promptString);
     const result = parsePrompt(prompt, res);
@@ -69,9 +67,7 @@ const makeResultLines = (llmResponse: string, prompt: Prompt) => {
   const resultLines = llmResponse.split("\n");
   const tmp: string[] = [];
   resultLines.forEach((line) => {
-    if (
-      Object.keys(prompt.response).some((key) => line.startsWith(`${key}: `))
-    ) {
+    if (Object.keys(prompt.response).some((key) => line.startsWith(`${key}: `))) {
       tmp.push(line);
     } else if (tmp.length > 0) {
       tmp[tmp.length - 1] += `\n${line}`;
@@ -90,12 +86,24 @@ export const parsePrompt = <T extends Prompt>(
   const resultLines = makeResultLines(llmResponse, prompt);
   const response = {} as { [k in keyof T["response"]]: string };
   Object.keys(prompt.response).forEach((key) => {
-    const line = resultLines.find((line: string) =>
-      line.startsWith(`${key}: `)
-    );
+    const line = resultLines.find((line: string) => line.startsWith(`${key}: `));
     if (!line) {
-      throw new Error("Invalid llm response format");
+      throw new Error("Invalid llm response format: Invalid key \n\nResponse ->\n" + llmResponse);
     }
+
+    // 配列の時
+    if (Array.isArray(prompt.response[key].example)) {
+      if (!line.includes(",")) {
+        throw new Error("Invalid llm response format: Invalid array format \n\nResponse ->\n" + llmResponse);
+      }
+      (response[key] as any) = line
+        .replace(`${key}: `, "")
+        .split(",")
+        .map((v) => (v.startsWith(" ") ? v.slice(1) : v));
+      return;
+    }
+
+    // 文字列の時
     (response[key] as any) = line.replace(`${key}: `, "");
   });
   return response;
@@ -112,7 +120,9 @@ export const makePromptString = (prompt: Prompt): string => {
     .join("\n");
   const exampleFormats = Object.keys(prompt.response)
     .map((key) => {
-      return `${key}: ${prompt.response[key].example}`;
+      const example = prompt.response[key].example;
+      const exampleString = Array.isArray(example) ? example.join(", ") : example;
+      return `${key}: ${exampleString}`;
     })
     .join("\n");
 
