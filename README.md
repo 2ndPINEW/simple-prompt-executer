@@ -7,9 +7,9 @@
 ### Node ESM
 
 ```typescript
-import { Prompt, makePromptString, parsePrompt } from "simple-prompt-executer";
+import { makePromptString, parsePrompt } from "simple-prompt-executer";
 
-const prompt: Prompt = {
+const prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
   exampleDescription: "パンをテーマにクイズを考えた例です。",
   response: {
@@ -42,9 +42,9 @@ result.notExistProperty;
 ### Deno
 
 ```typescript
-import { PromptExecuter, Prompt } from "npm:simple-prompt-executer";
+import { PromptExecuter } from "npm:simple-prompt-executer";
 
-const prompt: Prompt = {
+const prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
   exampleDescription: "パンをテーマにクイズを考えた例です。",
   response: {
@@ -78,9 +78,9 @@ result.notExistProperty;
 ### LLM は自分で決めたい
 
 ```typescript
-import { makePromptString, parsePrompt, Prompt } from "simple-prompt-executer";
+import { makePromptString, parsePrompt } from "simple-prompt-executer";
 
-const prompt: Prompt = {
+const prompt = {
   prompt: `以下の文章から4択クイズを考えてください。`,
   exampleDescription: "パンをテーマにクイズを考えた例です。",
   response: {
